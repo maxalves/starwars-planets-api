@@ -1,4 +1,4 @@
-package com.challenge.starwars.application.exception;
+package com.challenge.starwars.exceptions;
 
 public class PlanetNotFoundException extends RuntimeException {
     public PlanetNotFoundException(String id) {

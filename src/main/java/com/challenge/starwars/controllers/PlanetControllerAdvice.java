@@ -1,6 +1,6 @@
 package com.challenge.starwars.controllers;
 
-import com.challenge.starwars.application.exception.PlanetNotFoundException;
+import com.challenge.starwars.exceptions.PlanetNotFoundException;
 import com.challenge.starwars.exceptions.PlanetAlreadyExistsException;
 import com.challenge.starwars.models.CustomError;
 import com.challenge.starwars.services.PlanetServiceImpl;
