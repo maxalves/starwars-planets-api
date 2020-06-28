@@ -46,7 +46,7 @@ public class PlanetController {
 
         var createdPlanet = planetService.create(modelMapper.map(planet, Planet.class));
 
-        return mapToDTO(createdPlanet);
+        return mapToPresentation(createdPlanet);
     }
 
     @GetMapping("/{id}")
@@ -55,7 +55,7 @@ public class PlanetController {
 
         var planet = planetService.findById(planetId);
 
-        return mapToDTO(planet);
+        return mapToPresentation(planet);
     }
 
     @GetMapping
@@ -70,7 +70,7 @@ public class PlanetController {
         var planets = Objects.isNull(name) ? planetService.findAll(pageRequest) :
                 planetService.findAllByName(pageRequest, name);
 
-        return CollectionModel.of(mapToDTO(planets))
+        return CollectionModel.of(mapToPresentation(planets))
                 .add(getPageLink(page, size, name).withSelfRel())
                 .addIf(planets.hasPrevious(),
                         () -> getPageLink(page - 1, size, name).withRel("previous"))
@@ -92,14 +92,14 @@ public class PlanetController {
         return Link.of(linkString);
     }
 
-    private List<PlanetDTO> mapToDTO(Page<Planet> planets) {
+    private List<PlanetDTO> mapToPresentation(Page<Planet> planets) {
         return planets.toList()
                 .stream()
-                .map(this::mapToDTO)
+                .map(this::mapToPresentation)
                 .collect(Collectors.toList());
     }
 
-    private PlanetDTO mapToDTO(Planet planet) {
+    private PlanetDTO mapToPresentation(Planet planet) {
         var selfLink = linkTo(methodOn(this.getClass()).findPlanet(planet.getId())).withSelfRel();
         var planetsLink = linkTo(this.getClass()).withRel("planets");
 
