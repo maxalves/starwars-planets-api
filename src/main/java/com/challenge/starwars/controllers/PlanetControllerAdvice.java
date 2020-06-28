@@ -1,5 +1,6 @@
 package com.challenge.starwars.controllers;
 
+import com.challenge.starwars.application.exception.PlanetNotFoundException;
 import com.challenge.starwars.exceptions.PlanetAlreadyExistsException;
 import com.challenge.starwars.models.CustomError;
 import com.challenge.starwars.services.PlanetServiceImpl;
@@ -32,5 +33,11 @@ public class PlanetControllerAdvice {
             errors.put(fieldName, errorMessage);
         });
         return errors;
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(PlanetNotFoundException.class)
+    public CustomError planetNotFoundExceptionHandler(PlanetNotFoundException error) {
+        return CustomError.builder().message(error.getMessage()).build();
     }
 }

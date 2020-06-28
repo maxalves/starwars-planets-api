@@ -39,6 +39,10 @@ public class PlanetController {
 
     @GetMapping("/{id}")
     PlanetDTO findPlanet(@PathVariable("id") String planetId) {
-        return null;
+        var planet = planetService.findById(planetId);
+
+        Link selfLink = linkTo(methodOn(this.getClass()).findPlanet(planet.getId())).withSelfRel();
+
+        return new ModelMapper().map(planet, PlanetDTO.class).add(selfLink);
     }
 }

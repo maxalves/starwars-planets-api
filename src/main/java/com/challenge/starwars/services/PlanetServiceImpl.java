@@ -1,5 +1,6 @@
 package com.challenge.starwars.services;
 
+import com.challenge.starwars.application.exception.PlanetNotFoundException;
 import com.challenge.starwars.exceptions.PlanetAlreadyExistsException;
 import com.challenge.starwars.models.Planet;
 import com.challenge.starwars.repositories.PlanetRepository;
@@ -12,7 +13,7 @@ import java.util.Objects;
 
 @Service
 public class PlanetServiceImpl implements PlanetService {
-    private PlanetRepository planetRepository;
+    private final PlanetRepository planetRepository;
 
     @Autowired
     public PlanetServiceImpl(PlanetRepository planetRepository) {
@@ -29,7 +30,13 @@ public class PlanetServiceImpl implements PlanetService {
 
     @Override
     public Planet findById(String id) {
-        return null;
+        var planet = planetRepository.findById(id);
+
+        if (planet.isEmpty()) {
+            throw new PlanetNotFoundException(id);
+        }
+
+        return planet.get();
     }
 
     @Override
