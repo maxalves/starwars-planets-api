@@ -32,9 +32,8 @@ public class PlanetServiceImpl implements PlanetService {
     public Planet findById(String id) {
         var planet = planetRepository.findById(id);
 
-        if (planet.isEmpty()) {
+        if (planet.isEmpty())
             throw new PlanetNotFoundException(id);
-        }
 
         return planet.get();
     }

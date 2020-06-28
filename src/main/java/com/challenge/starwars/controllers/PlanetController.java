@@ -3,6 +3,7 @@ package com.challenge.starwars.controllers;
 import com.challenge.starwars.models.Planet;
 import com.challenge.starwars.models.dtos.PlanetDTO;
 import com.challenge.starwars.services.PlanetService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Slf4j
 @RestController
 @RequestMapping("/v1/planets")
 public class PlanetController {
@@ -28,6 +30,7 @@ public class PlanetController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     PlanetDTO addPlanet(@Valid @RequestBody PlanetDTO planet) {
+        log.debug(String.format("Saving planet %s...", planet.getName()));
         var modelMapper = new ModelMapper();
 
         var createdPlanet = planetService.create(modelMapper.map(planet, Planet.class));
@@ -39,6 +42,7 @@ public class PlanetController {
 
     @GetMapping("/{id}")
     PlanetDTO findPlanet(@PathVariable("id") String planetId) {
+        log.debug(String.format("Searching for planet with id %s...", planetId));
         var planet = planetService.findById(planetId);
 
         Link selfLink = linkTo(methodOn(this.getClass()).findPlanet(planet.getId())).withSelfRel();
