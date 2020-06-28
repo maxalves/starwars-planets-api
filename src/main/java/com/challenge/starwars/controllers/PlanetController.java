@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -48,5 +49,10 @@ public class PlanetController {
         Link selfLink = linkTo(methodOn(this.getClass()).findPlanet(planet.getId())).withSelfRel();
 
         return new ModelMapper().map(planet, PlanetDTO.class).add(selfLink);
+    }
+
+    @GetMapping
+    List<PlanetDTO> findAllPlanets() {
+        return null;
     }
 }
