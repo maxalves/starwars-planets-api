@@ -1,4 +1,4 @@
-package com.challenge.starwars.configuration;
+package com.challenge.starwars.configurations;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;
