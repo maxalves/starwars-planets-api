@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Data
@@ -17,4 +18,6 @@ public class CustomError {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String> fields;
+
+    private LocalDateTime timestamp;
 }
