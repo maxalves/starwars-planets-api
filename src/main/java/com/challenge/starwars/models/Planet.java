@@ -26,4 +26,6 @@ public class Planet implements Serializable {
     String climate;
 
     String terrain;
+
+    Integer filmApparitionsCount;
 }
