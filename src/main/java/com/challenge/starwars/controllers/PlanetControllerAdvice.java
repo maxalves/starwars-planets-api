@@ -25,14 +25,15 @@ public class PlanetControllerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException error) {
+    public CustomError methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException error) {
         Map<String, String> errors = new HashMap<>();
         error.getBindingResult().getAllErrors().forEach((e) -> {
             String fieldName = ((FieldError) e).getField();
             String errorMessage = e.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        return errors;
+
+        return CustomError.builder().message("Planet is invalid").fields(errors).build();
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
