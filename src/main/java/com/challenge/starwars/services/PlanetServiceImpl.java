@@ -6,9 +6,9 @@ import com.challenge.starwars.models.Planet;
 import com.challenge.starwars.repositories.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -39,12 +39,12 @@ public class PlanetServiceImpl implements PlanetService {
     }
 
     @Override
-    public List<Planet> findAll(Page page) {
-        return null;
+    public Page<Planet> findAll(Pageable page) {
+        return planetRepository.findAll(page);
     }
 
     @Override
-    public List<Planet> findAllByName(Page page, String name) {
+    public Page<Planet> findAllByName(Pageable page, String name) {
         return null;
     }
 
