@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "swapi.url",
+      "type": "java.lang.String",
+      "description": "Swapi external service API URL https://swapi.dev/documentation."
+    },
+    {
+      "name": "hystrix.command.default.execution.timeout.enabled",
+      "type": "java.lang.String",
+      "description": "When active timeout degradation is enabled https://github.com/Netflix/Hystrix/wiki."
+    },
+    {
+      "name": "hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds",
+      "type": "java.lang.String",
+      "description": "When set specified timeout is used for method execution https://github.com/Netflix/Hystrix/wiki."
+    },
+    {
+      "name": "hystrix.command.default.metrics.rollingStats.timeInMilliseconds",
+      "type": "java.lang.String",
+      "description": "When set this time window is taken in consideration to store metrics about failures https://github.com/Netflix/Hystrix/wiki."
+    },
+    {
+      "name": "hystrix.command.default.circuitBreaker.errorThresholdPercentage",
+      "type": "java.lang.String",
+      "description": "Error threshold for circuit to trip https://github.com/Netflix/Hystrix/wiki."
+    },
+    {
+      "name": "hystrix.command.default.circuitBreaker.requestVolumeThreshold",
+      "type": "java.lang.String",
+      "description": "Request volume taken into consideration for statistics https://github.com/Netflix/Hystrix/wiki."
+    }
+  ] }
