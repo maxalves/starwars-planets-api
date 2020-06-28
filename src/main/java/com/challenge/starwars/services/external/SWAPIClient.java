@@ -1,7 +1,7 @@
 package com.challenge.starwars.services.external;
 
-import com.challenge.starwars.models.swapi.SwapiPlanetResponse;
-import com.challenge.starwars.configuration.FeignConfig;
+import com.challenge.starwars.configurations.FeignConfig;
+import com.challenge.starwars.models.external.SwapiPlanetResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

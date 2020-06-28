@@ -1,4 +1,4 @@
-package com.challenge.starwars.models.swapi;
+package com.challenge.starwars.models.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

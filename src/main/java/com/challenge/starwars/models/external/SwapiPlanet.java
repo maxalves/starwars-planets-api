@@ -1,4 +1,4 @@
-package com.challenge.starwars.models.swapi;
+package com.challenge.starwars.models.external;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

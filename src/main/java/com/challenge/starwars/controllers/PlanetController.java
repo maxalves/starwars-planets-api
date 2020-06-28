@@ -1,8 +1,8 @@
 package com.challenge.starwars.controllers;
 
+import com.challenge.starwars.services.PlanetService;
 import com.challenge.starwars.models.Planet;
 import com.challenge.starwars.models.dtos.PlanetDTO;
-import com.challenge.starwars.services.PlanetService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class PlanetController {
 
         var createdPlanet = planetService.create(modelMapper.map(planet, Planet.class));
 
-        return mapToPresentation(createdPlanet);
+        return mapToDTO(createdPlanet);
     }
 
     @GetMapping("/{id}")
@@ -55,7 +55,7 @@ public class PlanetController {
 
         var planet = planetService.findById(planetId);
 
-        return mapToPresentation(planet);
+        return mapToDTO(planet);
     }
 
     @GetMapping
@@ -70,7 +70,7 @@ public class PlanetController {
         var planets = Objects.isNull(name) ? planetService.findAll(pageRequest) :
                 planetService.findAllByName(pageRequest, name);
 
-        return CollectionModel.of(mapToPresentation(planets))
+        return CollectionModel.of(mapToDTO(planets))
                 .add(getPageLink(page, size, name).withSelfRel())
                 .addIf(planets.hasPrevious(),
                         () -> getPageLink(page - 1, size, name).withRel("previous"))
@@ -101,14 +101,14 @@ public class PlanetController {
         return Link.of(linkString);
     }
 
-    private List<PlanetDTO> mapToPresentation(Page<Planet> planets) {
+    private List<PlanetDTO> mapToDTO(Page<Planet> planets) {
         return planets.toList()
                 .stream()
-                .map(this::mapToPresentation)
+                .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
-    private PlanetDTO mapToPresentation(Planet planet) {
+    private PlanetDTO mapToDTO(Planet planet) {
         var selfLink = linkTo(methodOn(this.getClass()).findPlanet(planet.getId())).withSelfRel();
         var planetsLink = linkTo(this.getClass()).withRel("planets");
 
