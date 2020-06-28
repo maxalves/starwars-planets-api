@@ -47,8 +47,9 @@ public class PlanetController {
         var planet = planetService.findById(planetId);
 
         Link selfLink = linkTo(methodOn(this.getClass()).findPlanet(planet.getId())).withSelfRel();
+        Link planetsLink = linkTo(methodOn(this.getClass()).findAllPlanets()).withRel("planets");
 
-        return new ModelMapper().map(planet, PlanetDTO.class).add(selfLink);
+        return new ModelMapper().map(planet, PlanetDTO.class).add(selfLink).add(planetsLink);
     }
 
     @GetMapping
