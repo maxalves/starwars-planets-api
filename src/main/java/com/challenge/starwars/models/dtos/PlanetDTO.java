@@ -31,4 +31,8 @@ public class PlanetDTO extends RepresentationModel<PlanetDTO> {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @Size(max = 200)
     String terrain;
+
+    @JsonProperty(value = "film_apparitions", access = JsonProperty.Access.READ_ONLY)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    Integer filmApparitionsCount;
 }
