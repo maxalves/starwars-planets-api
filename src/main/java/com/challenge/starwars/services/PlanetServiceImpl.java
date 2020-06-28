@@ -45,11 +45,15 @@ public class PlanetServiceImpl implements PlanetService {
 
     @Override
     public Page<Planet> findAllByName(Pageable page, String name) {
-        return null;
+        return planetRepository.findAllByNameContainingIgnoreCase(page, name);
     }
 
     @Override
     public Planet delete(String id) {
-        return null;
+        var planet = findById(id);
+
+        planetRepository.deleteById(id);
+
+        return planet;
     }
 }

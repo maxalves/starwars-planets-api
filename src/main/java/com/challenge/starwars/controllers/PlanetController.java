@@ -78,6 +78,15 @@ public class PlanetController {
                         () -> getPageLink(page + 1, size, name).withRel("next"));
     }
 
+    @DeleteMapping("/{id}")
+    PlanetDTO deletePlanet(@PathVariable("id") String planetId) {
+        log.debug(String.format("Deleting planet with id %s...", planetId));
+
+        var planet = planetService.delete(planetId);
+
+        return modelMapper.map(planet, PlanetDTO.class).add(linkTo(this.getClass()).withRel("planets"));
+    }
+
     private Link getPageLink(int page, int size, String name) {
         var base = linkTo(this.getClass())
                 .toUriComponentsBuilder()
