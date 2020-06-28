@@ -3,12 +3,13 @@ package com.challenge.starwars.models.dtos;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
-public class PlanetDTO {
+public class PlanetDTO extends RepresentationModel<PlanetDTO> {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     String id;
 
