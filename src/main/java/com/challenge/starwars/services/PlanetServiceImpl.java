@@ -5,6 +5,8 @@ import com.challenge.starwars.exceptions.PlanetAlreadyExistsException;
 import com.challenge.starwars.models.Planet;
 import com.challenge.starwars.repositories.PlanetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.Objects;
 @Service
 public class PlanetServiceImpl implements PlanetService {
     private final PlanetRepository planetRepository;
+
+    private static final String CACHE_NAME = "planets";
 
     @Autowired
     public PlanetServiceImpl(PlanetRepository planetRepository) {
@@ -28,6 +32,7 @@ public class PlanetServiceImpl implements PlanetService {
         return planetRepository.save(planet);
     }
 
+    @Cacheable(cacheNames = CACHE_NAME, key="#id")
     @Override
     public Planet findById(String id) {
         var planet = planetRepository.findById(id);
@@ -48,6 +53,7 @@ public class PlanetServiceImpl implements PlanetService {
         return planetRepository.findAllByNameContainingIgnoreCase(page, name);
     }
 
+    @CacheEvict(cacheNames = CACHE_NAME, key = "#id")
     @Override
     public Planet delete(String id) {
         var planet = findById(id);
