@@ -56,10 +56,13 @@ public class PlanetServiceImpl implements PlanetService {
     @CacheEvict(cacheNames = CACHE_NAME, key = "#id")
     @Override
     public Planet delete(String id) {
-        var planet = findById(id);
+        var planet = planetRepository.findById(id);
+
+        if (planet.isEmpty())
+            throw new PlanetNotFoundException(id);
 
         planetRepository.deleteById(id);
 
-        return planet;
+        return planet.get();
     }
 }
