@@ -25,7 +25,8 @@ public class PlanetServiceImpl implements PlanetService {
         this.starWarsService = starWarsService;
     }
 
-    @CachePut(cacheNames = CACHE_NAME, key = "#planet.id")
+    @CachePut(cacheNames = CACHE_NAME, key = "#planet.id",
+            unless = "#result.filmApparitionsCount == null")
     @Override
     public Planet create(Planet planet) {
         planetRepository.findByName(planet.getName()).ifPresent(p -> {
@@ -35,7 +36,8 @@ public class PlanetServiceImpl implements PlanetService {
         return setPlanetFilmApparitionsCountOn(planetRepository.save(planet));
     }
 
-    @Cacheable(cacheNames = CACHE_NAME, key = "#id")
+    @Cacheable(cacheNames = CACHE_NAME, key = "#id",
+            unless = "#result.filmApparitionsCount == null")
     @Override
     public Planet findById(String id) {
         return planetRepository.findById(id)
