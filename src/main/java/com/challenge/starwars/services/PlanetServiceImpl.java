@@ -7,6 +7,7 @@ import com.challenge.starwars.repositories.PlanetRepository;
 import com.challenge.starwars.services.external.StarWarsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class PlanetServiceImpl implements PlanetService {
         this.starWarsService = starWarsService;
     }
 
-    @Cacheable(cacheNames = CACHE_NAME, key = "#id")
+    @CachePut(cacheNames = CACHE_NAME, key = "#planet.id")
     @Override
     public Planet create(Planet planet) {
         if (Objects.nonNull(planetRepository.findByName(planet.getName())))
