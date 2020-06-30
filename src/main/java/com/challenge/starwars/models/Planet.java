@@ -19,13 +19,13 @@ public class Planet implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    String id;
+    private String id;
 
-    String name;
+    private String name;
 
-    String climate;
+    private String climate;
 
-    String terrain;
+    private String terrain;
 
-    Integer filmApparitionsCount;
+    private Integer filmApparitionsCount;
 }
