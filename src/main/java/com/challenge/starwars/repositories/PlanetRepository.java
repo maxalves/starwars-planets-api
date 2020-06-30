@@ -10,13 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface PlanetRepository extends MongoRepository<Planet, String> {
-    Planet save(Planet planet);
-
     Optional<Planet> findById(String id);
 
     Page<Planet> findAll(Pageable pageable);
 
     Page<Planet> findAllByNameContainingIgnoreCase(Pageable pageable, String name);
 
-    Planet findByName(String name);
+    Optional<Planet> findByName(String name);
 }

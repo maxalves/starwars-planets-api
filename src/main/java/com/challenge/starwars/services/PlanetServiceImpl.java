@@ -13,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-
 @Service
 public class PlanetServiceImpl implements PlanetService {
     private static final String CACHE_NAME = "planets";
@@ -30,27 +28,19 @@ public class PlanetServiceImpl implements PlanetService {
     @CachePut(cacheNames = CACHE_NAME, key = "#planet.id")
     @Override
     public Planet create(Planet planet) {
-        if (Objects.nonNull(planetRepository.findByName(planet.getName())))
-            throw new PlanetAlreadyExistsException(planet);
+        planetRepository.findByName(planet.getName()).ifPresent(p -> {
+            throw new PlanetAlreadyExistsException(p);
+        });
 
-        planet = planetRepository.save(planet);
-        setPlanetFilmApparitionsCountOn(planet);
-
-        return planet;
+        return setPlanetFilmApparitionsCountOn(planetRepository.save(planet));
     }
 
     @Cacheable(cacheNames = CACHE_NAME, key = "#id")
     @Override
     public Planet findById(String id) {
-        var planet = planetRepository.findById(id);
-
-        if (planet.isEmpty())
-            throw new PlanetNotFoundException(id);
-
-        starWarsService.getFilmsCount(planet.get().getName())
-                .ifPresent(apparitions -> planet.get().setFilmApparitionsCount(apparitions));
-
-        return planet.get();
+        return planetRepository.findById(id)
+                .map(this::setPlanetFilmApparitionsCountOn)
+                .orElseThrow(() -> new PlanetNotFoundException(id));
     }
 
     @Override
@@ -70,18 +60,18 @@ public class PlanetServiceImpl implements PlanetService {
     @CacheEvict(cacheNames = CACHE_NAME, key = "#id")
     @Override
     public Planet delete(String id) {
-        var planet = planetRepository.findById(id);
-
-        if (planet.isEmpty())
-            throw new PlanetNotFoundException(id);
+        var planet = planetRepository.findById(id)
+                .orElseThrow(() -> new PlanetNotFoundException(id));
 
         planetRepository.deleteById(id);
 
-        return planet.get();
+        return planet;
     }
 
-    private void setPlanetFilmApparitionsCountOn(Planet planet) {
+    private Planet setPlanetFilmApparitionsCountOn(Planet planet) {
         starWarsService.getFilmsCount(planet.getName())
                 .ifPresent(planet::setFilmApparitionsCount);
+
+        return planet;
     }
 }
