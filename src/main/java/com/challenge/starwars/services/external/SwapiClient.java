@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
         name = "swapi",
         url = "${swapi.url}",
         configuration= FeignConfig.class)
-public interface SWAPIClient {
+public interface SwapiClient {
 
     @GetMapping("/planets/?search={name}")
     SwapiPlanetResponse getPlanetsByName(@PathVariable("name") String name);

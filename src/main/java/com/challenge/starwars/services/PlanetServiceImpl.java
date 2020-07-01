@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlanetServiceImpl implements PlanetService {
     private static final String CACHE_NAME = "planets";
+
     private final PlanetRepository planetRepository;
     private final StarWarsService starWarsService;
 
@@ -29,9 +30,8 @@ public class PlanetServiceImpl implements PlanetService {
             unless = "#result.filmApparitionsCount == null")
     @Override
     public Planet create(Planet planet) {
-        planetRepository.findByName(planet.getName()).ifPresent(p -> {
-            throw new PlanetAlreadyExistsException(p);
-        });
+        planetRepository.findByName(planet.getName())
+                .ifPresent(p -> { throw new PlanetAlreadyExistsException(p); });
 
         return setPlanetFilmApparitionsCountOn(planetRepository.save(planet));
     }
