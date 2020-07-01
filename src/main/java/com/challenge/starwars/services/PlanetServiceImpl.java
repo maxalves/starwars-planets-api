@@ -56,7 +56,11 @@ public class PlanetServiceImpl implements PlanetService {
 
     @Override
     public Page<Planet> findAllByName(Pageable page, String name) {
-        return planetRepository.findAllByNameContainingIgnoreCase(page, name);
+        var planets = planetRepository.findAllByNameContainingIgnoreCase(page, name);
+
+        planets.getContent().forEach(this::setPlanetFilmApparitionsCountOn);
+
+        return planets;
     }
 
     @CacheEvict(cacheNames = CACHE_NAME, key = "#id")

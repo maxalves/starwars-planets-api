@@ -1,4 +1,4 @@
-package com.challenge.starwars;
+package integration.com.challenge.starwars;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,6 +8,7 @@ class StarWarsApplicationTests {
 
 	@Test
 	void contextLoads() {
+		assert true;
 	}
 
 }
