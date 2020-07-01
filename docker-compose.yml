@@ -1,6 +1,16 @@
 version: '3'
 services:
-  mongo-database:
+  api:
+    image: maxalves/starwars-challenge
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
     image: mongo:latest
     ports:
       - 27017:27017
@@ -9,8 +19,8 @@ services:
     volumes:
       - starwars-data:/data/db
 
-  starwars-redis-db:
-    image: redis:latest
+  redis:
+    image: redis:alpine
     ports:
       - 6380:6380
       - 6379:6379
