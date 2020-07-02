@@ -33,6 +33,7 @@ dependencies {
 	compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '2.2.3.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.1.1'
+	compile group: 'com.github.javafaker', name: 'javafaker', version: '1.0.2'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
