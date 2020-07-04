@@ -27,10 +27,12 @@ stages:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
     - task: Bash@3
-      displayName: Run Unit Tests
+      displayName: Run unit tests
       inputs:
-        script: docker run star-wars ./gradlew test --tests 'unit*'
+        targetType: 'inline'
+        script: 'docker run star-wars ./gradlew test --tests unit*'
     - task: Bash@3
-      displayName: Run Integration Tests
+      displayName: Run integration tests
       inputs:
-        script: docker run star-wars ./gradlew test --tests 'integration.*'
+        targetType: 'inline'
+        script: 'docker run star-wars ./gradlew test --tests integration*'
