@@ -14,7 +14,5 @@ RUN ./gradlew build -x test --parallel && \
 
 ENV SPRING_PROFILES_ACTIVE=docker
 
-ENV SPRING_PROFILES_ACTIVE=docker
-
 EXPOSE 8080
 CMD ["java","-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]

@@ -30,15 +30,16 @@ EXPOSE 8080 <- CHANGE IT HERE IF YOU WANT TO
 
 
 ## Endpoints
-1. Add Planet
+1. Add Planet - Request
 > http://localhost:8080/v1/planets
-```json 
+```json
     {
     	"name": "Tatooine",
     	"terrain": "temperate",
     	"climate": "ocean"
     }
 ```
+> Add Planet - Response
 ```json
 {
     "id": "{planetId}",
@@ -57,8 +58,10 @@ EXPOSE 8080 <- CHANGE IT HERE IF YOU WANT TO
 
 ```
 
-2. Get Planet
+2. Get Planet - Request
 > http://localhost:8080/v1/planets/{planetId}
+
+> Get Planet - Response
 ```json
 {
     "id": "{planetId}",
@@ -77,8 +80,10 @@ EXPOSE 8080 <- CHANGE IT HERE IF YOU WANT TO
 }
 ```
 
-3. Delete Planet
+3. Delete Planet - Request
 > http://localhost:8080/planets/{planetId}
+
+> Delete Planet - Response
 ```json
 {
     "id": "{planetId}",
@@ -93,8 +98,10 @@ EXPOSE 8080 <- CHANGE IT HERE IF YOU WANT TO
 }
 ```
 
-4. Get all planets
+4. Get all planets - Request
 > http://localhost:8080/v1/planets
+
+> Get all planets - Response
 ```json
 {
     "_embedded": {
