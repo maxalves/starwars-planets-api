@@ -7,7 +7,6 @@ import com.challenge.starwars.services.PlanetServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,17 +50,6 @@ public class PlanetControllerAdvice {
                 .message("Planet is invalid")
                 .timestamp(LocalDateTime.now(ZoneOffset.UTC))
                 .fields(errors)
-                .build();
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public CustomError httpMessageNotReadableExceptionHandler(HttpMessageNotReadableException error) {
-        log.error("Planet is invalid", error);
-
-        return CustomError.builder()
-                .message("Payload is invalid")
-                .timestamp(LocalDateTime.now(ZoneOffset.UTC))
                 .build();
     }
 
