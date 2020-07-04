@@ -9,6 +9,7 @@ resources:
 - repo: self
 
 variables:
+  imageName: 'star-wars'
   tag: '$(Build.BuildId)'
 
 stages:
@@ -20,8 +21,16 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: DockerCompose@0
-      displayName: Run aplication for tests
+    - task: Docker@2
+      displayName: Build Image
       inputs:
-        dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml '
-        dockerComposeCommand: up
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+    - task: Bash@3
+      displayName: Run Unit Tests
+      inputs:
+        script: docker run star-wars ./gradlew test --tests 'unit*'
+    - task: Bash@3
+      displayName: Run Integration Tests
+      inputs:
+        script: docker run star-wars ./gradlew test --tests 'integration.*'
