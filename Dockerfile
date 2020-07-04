@@ -9,11 +9,8 @@ RUN ./gradlew dependencies
 COPY src src
 RUN ./gradlew build -x test && \
  mkdir -p build/dependency && \
-  (cd build/dependency; jar -xf ../libs/*.jar)
-
-FROM openjdk:11-jdk-slim
-VOLUME /tmp
-COPY --from=build /app/build/libs/*.jar /app.jar
+  (cd build/dependency; jar -xf ../libs/*.jar) && \
+  mv /app/build/libs/*.jar /app.jar
 
 ENV SPRING_PROFILES_ACTIVE=docker
 

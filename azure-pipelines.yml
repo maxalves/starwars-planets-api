@@ -1,0 +1,29 @@
+trigger:
+  - master
+
+resources:
+  - repo: self
+
+variables:
+  imageName: 'maxalves/star-wars'
+  tag: '$(Build.BuildId)'
+
+steps:
+  - task: Docker@2
+    displayName: Build an image
+    inputs:
+      repository: $(imageName)
+      command: build
+      Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+
+  - task: Bash@3
+    displayName: Run Unit Tests
+    inputs:
+      targetType: 'inline'
+      script: docker run $(docker image ls -q --filter reference="maxalves/star-wars") ./gradlew test --tests 'unit.*'
+
+  - task: Bash@3
+    displayName: Run Integration Tests
+    inputs:
+      targetType: 'inline'
+      script: docker run $(docker image ls -q --filter reference="maxalves/star-wars") ./gradlew test --tests 'integration.*'
