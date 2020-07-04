@@ -36,7 +36,7 @@ public class PlanetServiceImplTests {
 
     @Test
     void create_CorrectPlanet_PlanetCreated() {
-        var planet = PlanetFixtures.getRandomPlanet();
+        var planet = PlanetFixtures.getRandomPlanetWithIdAndFilmApparitionsCount();
 
         when(planetRepository.findByName(anyString())).thenReturn(Optional.empty());
         when(planetRepository.save(any(Planet.class))).thenReturn(planet);
@@ -54,7 +54,7 @@ public class PlanetServiceImplTests {
 
     @Test
     void create_ExistingPlanet_PlanetAlreadyExistsException() {
-        var planet = PlanetFixtures.getRandomPlanet();
+        var planet = PlanetFixtures.getRandomPlanetWithIdAndFilmApparitionsCount();
 
         when(planetRepository.findByName(anyString())).thenReturn(Optional.of(planet));
 
@@ -67,7 +67,7 @@ public class PlanetServiceImplTests {
 
     @Test
     void findById_ExistingPlanetId_FoundPlanet() {
-        var expectedPlanet = PlanetFixtures.getRandomPlanet();
+        var expectedPlanet = PlanetFixtures.getRandomPlanetWithIdAndFilmApparitionsCount();
 
         when(planetRepository.findById(anyString())).thenReturn(Optional.of(expectedPlanet));
 
@@ -137,7 +137,7 @@ public class PlanetServiceImplTests {
 
     @Test
     void deleteById_ExistingPlanetId_FoundPlanet() {
-        var expectedPlanet = PlanetFixtures.getRandomPlanet();
+        var expectedPlanet = PlanetFixtures.getRandomPlanetWithIdAndFilmApparitionsCount();
 
         when(planetRepository.findById(anyString())).thenReturn(Optional.of(expectedPlanet));
 

@@ -17,6 +17,14 @@ public class PlanetFixtures {
 
     public static Planet getRandomPlanet() {
         return Planet.builder()
+                .name(Faker.instance().regexify("[a-zA-Z0-9]{10}"))
+                .climate(Faker.instance().regexify("[a-zA-Z]{20}"))
+                .terrain(Faker.instance().regexify("[a-zA-Z]{20}"))
+                .build();
+    }
+
+    public static Planet getRandomPlanetWithIdAndFilmApparitionsCount() {
+        return Planet.builder()
                 .id(Faker.instance().regexify("[a-zA-Z0-9]{10}"))
                 .name(Faker.instance().regexify("[a-zA-Z0-9]{10}"))
                 .filmApparitionsCount(Faker.instance().number().randomDigit())
@@ -29,7 +37,7 @@ public class PlanetFixtures {
         var planets = new ArrayList<Planet>();
 
         for (int count = 0; count < quantity; count++)
-            planets.add(getRandomPlanet());
+            planets.add(getRandomPlanetWithIdAndFilmApparitionsCount());
 
         return planets;
     }
