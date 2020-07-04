@@ -30,9 +30,9 @@ stages:
       displayName: Run unit tests
       inputs:
         targetType: 'inline'
-        script: 'docker run star-wars ./gradlew test --tests unit*'
+        script: 'docker run $(docker image ls -q --filter reference="star-wars") ./gradlew test --tests unit*'
     - task: Bash@3
       displayName: Run integration tests
       inputs:
         targetType: 'inline'
-        script: 'docker run star-wars ./gradlew test --tests integration*'
+        script: 'docker run $(docker image ls -q --filter reference="star-wars") ./gradlew test --tests integration*'
