@@ -41,7 +41,7 @@ public class PlanetController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    PlanetDTO addPlanet(@Valid @RequestBody PlanetDTO planet) {
+    public PlanetDTO addPlanet(@Valid @RequestBody PlanetDTO planet) {
         log.debug(String.format("Saving planet %s...", planet.getName()));
 
         var createdPlanet = planetService.create(modelMapper.map(planet, Planet.class));
@@ -50,7 +50,7 @@ public class PlanetController {
     }
 
     @GetMapping("/{id}")
-    PlanetDTO findPlanet(@PathVariable("id") String planetId) {
+    public PlanetDTO findPlanet(@PathVariable("id") String planetId) {
         log.debug(String.format("Searching for planet with id %s...", planetId));
 
         var planet = planetService.findById(planetId);
@@ -59,7 +59,7 @@ public class PlanetController {
     }
 
     @GetMapping
-    CollectionModel<PlanetDTO> findAllPlanets(
+    public CollectionModel<PlanetDTO> findAllPlanets(
             @Min(1) @RequestParam(value = "page", defaultValue = "1") int page,
             @Min(1) @Max(100) @RequestParam(value = "size", defaultValue = "20") int size,
             @RequestParam(value = "name", required = false) String name) {
@@ -79,7 +79,7 @@ public class PlanetController {
     }
 
     @DeleteMapping("/{id}")
-    PlanetDTO deletePlanet(@PathVariable("id") String planetId) {
+    public PlanetDTO deletePlanet(@PathVariable("id") String planetId) {
         log.debug(String.format("Deleting planet with id %s...", planetId));
 
         var planet = planetService.delete(planetId);
