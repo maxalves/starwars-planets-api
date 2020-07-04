@@ -7,7 +7,7 @@ COPY gradle gradle
 RUN ./gradlew dependencies
 
 COPY src src
-RUN ./gradlew build -x test && \
+RUN ./gradlew build -x test --parallel && \
  mkdir -p build/dependency && \
   (cd build/dependency; jar -xf ../libs/*.jar) && \
   mv /app/build/libs/*.jar /app.jar
