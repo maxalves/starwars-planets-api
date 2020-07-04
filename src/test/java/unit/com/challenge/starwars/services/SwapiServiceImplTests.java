@@ -3,8 +3,6 @@ package unit.com.challenge.starwars.services;
 import com.challenge.starwars.services.external.SwapiClient;
 import com.challenge.starwars.services.external.SwapiServiceImpl;
 import com.github.javafaker.Faker;
-import com.netflix.hystrix.HystrixCommand;
-import feign.FeignException;
 import fixtures.SwapiFixtures;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,9 +20,6 @@ public class SwapiServiceImplTests {
 
     @Mock
     private SwapiClient swapiClient;
-
-    @Mock
-    private HystrixCommand hystrixCommand;
 
     @InjectMocks
     private SwapiServiceImpl swapiService;
