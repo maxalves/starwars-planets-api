@@ -9,30 +9,25 @@ resources:
 - repo: self
 
 variables:
-  imageName: 'star-wars'
+  imageName: 'maxalves/star-wars'
   tag: '$(Build.BuildId)'
 
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:  
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: Docker@2
-      displayName: Build Image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-    - task: Bash@3
-      displayName: Run unit tests
-      inputs:
-        targetType: 'inline'
-        script: 'docker run $(docker image ls -q --filter reference="star-wars") ./gradlew test --tests unit*'
-    - task: Bash@3
-      displayName: Run integration tests
-      inputs:
-        targetType: 'inline'
-        script: 'docker run $(docker image ls -q --filter reference="star-wars") ./gradlew test --tests integration*'
+steps:
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: $(imageName)
+    command: build
+    Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+
+- task: Bash@3
+  displayName: Run Unit Tests
+  inputs:
+    targetType: 'inline'
+    script: docker run $(docker image ls -q --filter reference="maxalves/star-wars") ./gradlew test --tests 'unit.*'
+
+- task: Bash@3
+  displayName: Run Integration Tests
+  inputs:
+    targetType: 'inline'
+    script: docker run $(docker image ls -q --filter reference="maxalves/star-wars") ./gradlew test --tests 'integration.*'
