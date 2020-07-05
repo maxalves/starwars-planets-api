@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/max-personal/starwars-challenge/_apis/build/status/maxalves.starwars-planets-api?branchName=master)](https://dev.azure.com/max-personal/starwars-challenge/_build/latest?definitionId=2&branchName=master)
+
 # Star Wars API #
 > Spring Boot hal+json Restful Hateoas API for Star Wars planets management, built as a code challenge.
 
