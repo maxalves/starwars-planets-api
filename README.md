@@ -101,9 +101,10 @@ EXPOSE 8080 <- CHANGE IT HERE IF YOU WANT TO
 ```
 
 4. Get all planets - Request
-> http://localhost:8080/v1/planets
+> * http://localhost:8080/v1/planets
+> * http://localhost:8080/v1/planets?page=1&size=1  (paging)
 
-Get all planets - Response
+> Get all planets - Response
 ```json
 {
     "_embedded": {
