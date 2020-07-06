@@ -102,6 +102,7 @@ ports:
 4. Get all planets - Request
 > * http://localhost:8080/v1/planets
 > * http://localhost:8080/v1/planets?page=1&size=1  (paging)
+> * http://localhost:8080/v1/planets?name=tatooine (filtering by name)
 
 > Get all planets - Response
 ```json
