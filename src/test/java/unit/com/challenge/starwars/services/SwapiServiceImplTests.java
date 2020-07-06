@@ -28,7 +28,7 @@ public class SwapiServiceImplTests {
     void getFilmsCount_NotAStarWarsPlanet_OptionalNumber() {
         var planets = SwapiFixtures.getRandomSwapiPlanetResponse();
 
-        var planet = planets.getResults().get(Faker.instance().number().numberBetween(0, planets.getResultsSize()));
+        var planet = planets.getResults().get(Faker.instance().number().numberBetween(0, planets.getResultsSize()-1));
 
         when(swapiClient.getPlanetsByName(anyString())).thenReturn(planets);
 

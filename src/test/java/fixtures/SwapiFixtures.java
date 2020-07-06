@@ -76,7 +76,7 @@ public class SwapiFixtures {
     private static List<SwapiPlanet> getRandomSwapiPlanets() {
         var swapiPlanets = new ArrayList<SwapiPlanet>();
 
-        for(int planetsCount = 0; planetsCount < Faker.instance().number().randomDigit(); planetsCount++)
+        for(int planetsCount = 0; planetsCount < Faker.instance().number().randomDigitNotZero(); planetsCount++)
             swapiPlanets.add(getRandomSwapiPlanet());
 
         return swapiPlanets;
