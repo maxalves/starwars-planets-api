@@ -3,20 +3,17 @@ package com.challenge.starwars.services.external;
 import com.challenge.starwars.models.external.SwapiPlanet;
 import com.challenge.starwars.models.external.SwapiPlanetResponse;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class SwapiServiceImpl implements StarWarsService {
 
     private final SwapiClient swapiClient;
-
-    @Autowired
-    public SwapiServiceImpl(SwapiClient swapiClient) {
-        this.swapiClient = swapiClient;
-    }
 
     @HystrixCommand(fallbackMethod = "getFallbackFilmsCount")
     public Optional<Integer> getFilmsCount(String planetName) {

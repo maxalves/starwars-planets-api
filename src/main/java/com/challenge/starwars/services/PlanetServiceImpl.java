@@ -5,6 +5,7 @@ import com.challenge.starwars.exceptions.PlanetNotFoundException;
 import com.challenge.starwars.models.Planet;
 import com.challenge.starwars.repositories.PlanetRepository;
 import com.challenge.starwars.services.external.StarWarsService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+@AllArgsConstructor
 @Service
 public class PlanetServiceImpl implements PlanetService {
     private static final String CACHE_NAME = "planets";
@@ -20,11 +22,6 @@ public class PlanetServiceImpl implements PlanetService {
     private final PlanetRepository planetRepository;
     private final StarWarsService starWarsService;
 
-    @Autowired
-    public PlanetServiceImpl(PlanetRepository planetRepository, StarWarsService starWarsService) {
-        this.planetRepository = planetRepository;
-        this.starWarsService = starWarsService;
-    }
 
     @CachePut(cacheNames = CACHE_NAME, key = "#planet.id",
             unless = "#result.filmApparitionsCount == null")

@@ -3,6 +3,7 @@ package com.challenge.starwars.controllers;
 import com.challenge.starwars.services.PlanetService;
 import com.challenge.starwars.models.Planet;
 import com.challenge.starwars.models.dtos.PlanetDTO;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +27,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Validated
 @Slf4j
+@AllArgsConstructor
 @RestController
 @RequestMapping("/planets")
 public class PlanetController {
 
     private final PlanetService planetService;
     private final ModelMapper modelMapper;
-
-    @Autowired
-    public PlanetController(ModelMapper mapper, PlanetService planetService) {
-        this.planetService = planetService;
-        this.modelMapper = mapper;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
